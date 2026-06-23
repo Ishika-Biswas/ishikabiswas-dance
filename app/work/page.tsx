@@ -1,52 +1,76 @@
-import { client, allProjectsQuery, allPerformancesQuery, allPhotosQuery, urlFor } from '@/lib/sanity'
+import { client, allProjectsQuery, allPerformancesQuery, urlFor } from '@/lib/sanity'
 import Image from 'next/image'
 import Link from 'next/link'
 
 export const revalidate = 60
 
 async function getData() {
-  const [projects, performances, photos] = await Promise.all([
+  const [projects, performances] = await Promise.all([
     client.fetch(allProjectsQuery),
     client.fetch(allPerformancesQuery),
-    client.fetch(allPhotosQuery),
   ])
-  return { projects, performances, photos }
+  return { projects, performances }
 }
 
+const defaultProjects = [
+  { title: 'NADI — नदी', slug: { current: 'nadi' }, status: 'current', year: '2026', shortDescription: 'Outdoor Kathak-contemporary ensemble performance. Co-commissioned by Inspirate & ArtReach. Performing Leicester 2026.', commission: 'Inspirate & ArtReach', featured: true },
+  { title: 'Anantashakti', slug: { current: 'anantashakti' }, status: 'touring', year: '2025–26', shortDescription: 'Lead dancer and choreographer. UK Bengali Convention, Navin Kala Nritya Mahotsav ICCR Kolkata.', featured: false },
+  { title: 'River Taff Dialogues', slug: { current: 'taff' }, status: 'rnd', year: '2026', shortDescription: 'Research thread in conversation with the Lit in Place residency group working on the Taff.', featured: false },
+]
+
+const defaultPerformances = [
+  { title: 'NADI', festival: 'An Indian Summer Festival', city: 'Leicester', dateDisplay: '4–5 July 2026', type: 'upcoming', notes: 'Jubilee Square' },
+  { title: 'NADI', festival: 'Journeys Festival International', city: 'Leicester', dateDisplay: 'October 2026', type: 'upcoming', notes: '' },
+  { title: 'Anantashakti', venue: 'Royal Birmingham Conservatoire', city: 'Birmingham', dateDisplay: 'Aug 2025', type: 'festival', notes: 'UK Bengali Convention' },
+  { title: 'Making a Clearing', venue: 'Various Cardiff venues', city: 'Cardiff', dateDisplay: 'Dec 2025–Apr 2026', type: 'commissioned', notes: 'Jo Fong initiative' },
+  { title: 'Solo Kathak Recital', venue: 'Techniquest Cardiff', city: 'Cardiff', dateDisplay: 'Nov 2025', type: 'recital', notes: 'Royal College of Psychiatry Annual Conference' },
+  { title: 'Diwali Festival', venue: "St. Fagans National Museum Wales", city: 'Cardiff', dateDisplay: 'Oct 2025', type: 'festival', notes: '' },
+  { title: 'In the Quest of Peace Within', venue: 'Welsh Parliament', city: 'Cardiff', dateDisplay: 'Oct 2025', type: 'commissioned', notes: '' },
+  { title: 'Tagore\'s Dance Philosophy', venue: 'Club 1400', city: 'Cardiff', dateDisplay: 'Jun 2025', type: 'festival', notes: 'South Asian Heritage Month' },
+  { title: 'Kathak Recital', festival: 'Prerona Dance Festival', city: 'Kolkata', dateDisplay: 'Sep 2024', type: 'festival', notes: 'India' },
+  { title: 'Satyam Jnanam Anantam', venue: 'Kolkata & Vishakhapatnam', city: '', dateDisplay: '2022–23', type: 'commissioned', notes: 'Sangeet Natak Academy' },
+  { title: 'Chatusprana', venue: 'Kolkata & Vishakhapatnam', city: '', dateDisplay: '2021–23', type: 'commissioned', notes: 'Sampita Chatterjee' },
+]
+
+const festivalHistory = [
+  'Bhagirath Dance Festival 2019',
+  'Malasree Nityotsav 2018, 2019',
+  'Kalabhrith Dance & Music Festival 2017, 2018',
+  'Obhyudoy Cultural Festival 2016, 2017, 2018',
+  'Banichakra Dance Festival 2018',
+  'Pracheen Kala Kendra Mahotsab 2018',
+  'Sur o Bani Sanskritik Utsav 2018',
+  'Rath Yatra Opening Ceremony · Leamington Spa 2024',
+  'UK Bengali Convention · Royal Birmingham Conservatoire 2025',
+]
+
 export default async function Work() {
-  const { projects, performances, photos } = await getData()
+  const { projects, performances } = await getData()
+
+  const displayProjects = projects?.length ? projects : defaultProjects
+  const displayPerformances = performances?.length ? performances : defaultPerformances
 
   return (
     <main>
-      {/* Projects */}
-      <section style={{ background: 'var(--parchment)', padding: '120px 0' }}>
-        <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 56px' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 56 }}>
-            <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(42px, 5vw, 64px)', fontWeight: 300, color: 'var(--earth)' }}>Work</h1>
-          </div>
+      <section className="work-section">
+        <div className="work-inner">
+          <h1 className="work-page-title">Work</h1>
 
-          {/* Projects grid */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, marginBottom: 2 }}>
-            {projects?.map((p: any, i: number) => (
-              <Link key={i} href={`/work/${p.slug?.current || '#'}`} style={{
-                background: p.featured ? 'var(--earth)' : 'var(--white)',
-                padding: '48px 40px',
-                textDecoration: 'none',
-                display: 'block',
-                gridColumn: p.featured ? '1 / -1' : undefined,
-                transition: 'background 0.25s',
-              }}>
-                <span style={{ fontSize: 11, letterSpacing: '0.2em', textTransform: 'uppercase', color: p.featured ? 'var(--gold)' : 'var(--river)', marginBottom: 16, display: 'block' }}>
+          {/* Projects */}
+          <div style={{ marginBottom: 80 }}>
+            {displayProjects.map((p: any, i: number) => (
+              <Link key={i}
+                href={`/work/${p.slug?.current || '#'}`}
+                className={`project-card ${p.featured ? 'project-card-featured' : ''}`}
+                style={{ gridColumn: p.featured ? '1 / -1' : undefined }}
+              >
+                <span className="project-card-label">
                   {p.status === 'current' ? 'Current' : p.status === 'touring' ? 'Touring' : p.status === 'rnd' ? 'R&D' : 'Project'} · {p.year}
                 </span>
-                <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: p.featured ? 36 : 28, fontWeight: 400, color: p.featured ? 'var(--cream)' : 'var(--earth)', marginBottom: 12, lineHeight: 1.2 }}>
-                  {p.title}
-                </h3>
-                <p style={{ fontSize: 15, color: p.featured ? 'var(--sand)' : 'var(--earth)', opacity: 0.7, lineHeight: 1.7 }}>
-                  {p.shortDescription}
-                </p>
+                <h3 className="project-card-title">{p.title}</h3>
+                <p className="project-card-desc">{p.shortDescription}</p>
                 {p.commission && (
-                  <p style={{ marginTop: 20, fontSize: 12, letterSpacing: '0.08em', color: p.featured ? 'var(--gold)' : 'var(--bark)', opacity: 0.7 }}>
+                  <p style={{ marginTop: 16, fontSize: 12, letterSpacing: '0.08em', color: p.featured ? 'var(--gold)' : 'var(--bark)', opacity: 0.7 }}>
                     {p.commission}
                   </p>
                 )}
@@ -54,63 +78,44 @@ export default async function Work() {
             ))}
           </div>
 
-          {/* Performance timeline */}
-          <div style={{ marginTop: 80 }}>
-            <span className="label" style={{ marginBottom: 32 }}>Performance History</span>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              {performances?.map((p: any, i: number) => (
-                <div key={i} style={{
-                  display: 'grid', gridTemplateColumns: '100px 1fr auto',
-                  gap: 32, alignItems: 'start',
-                  background: 'var(--white)', padding: '28px 32px',
-                }}>
-                  <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 28, fontWeight: 300, color: 'var(--bark)', lineHeight: 1, paddingTop: 2 }}>
-                    {p.dateDisplay?.split(' ').slice(-1)[0] || new Date(p.date).getFullYear()}
+          {/* Performance history */}
+          <div>
+            <span className="label" style={{ marginBottom: 24 }}>Performance History</span>
+            <div>
+              {displayPerformances.map((p: any, i: number) => (
+                <div key={i} className="tl-item">
+                  <p className="tl-year">
+                    {p.dateDisplay?.split(' ').pop() || ''}
                   </p>
                   <div>
-                    <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 400, color: 'var(--earth)', marginBottom: 4, lineHeight: 1.2 }}>
-                      {p.title}
-                    </h3>
-                    <p style={{ fontSize: 14, color: 'var(--earth)', opacity: 0.6, lineHeight: 1.6 }}>
+                    <h3 className="tl-title">{p.title}</h3>
+                    <p className="tl-desc">
                       {p.festival || p.venue}{p.city ? ` · ${p.city}` : ''}{p.notes ? ` · ${p.notes}` : ''}
                     </p>
                   </div>
-                  <span style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--river)', background: 'rgba(61,96,96,0.08)', padding: '5px 10px', borderRadius: 2, alignSelf: 'start', whiteSpace: 'nowrap' }}>
-                    {p.type === 'rnd' ? 'R&D' : p.type === 'upcoming' ? 'Upcoming' : p.type === 'recital' ? 'Recital' : p.type === 'festival' ? 'Festival' : p.type === 'commissioned' ? 'Commissioned' : 'Performance'}
+                  <span className="tl-tag">
+                    {p.type === 'rnd' ? 'R&D' :
+                     p.type === 'upcoming' ? 'Upcoming' :
+                     p.type === 'recital' ? 'Recital' :
+                     p.type === 'festival' ? 'Festival' :
+                     p.type === 'commissioned' ? 'Commissioned' : 'Performance'}
                   </span>
                 </div>
               ))}
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Photo gallery */}
-      {photos?.length > 0 && (
-        <section style={{ background: 'var(--cream)', padding: '80px 0' }}>
-          <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 56px' }}>
-            <span className="label" style={{ marginBottom: 32 }}>Gallery</span>
-            <div style={{ columns: 3, gap: 3 }}>
-              {photos.map((photo: any, i: number) => (
-                <div key={i} style={{ breakInside: 'avoid', marginBottom: 3, position: 'relative', overflow: 'hidden' }}>
-                  <Image
-                    src={urlFor(photo.image).width(600).url()}
-                    alt={photo.title || 'Performance photo'}
-                    width={600}
-                    height={400}
-                    style={{ width: '100%', height: 'auto', display: 'block' }}
-                  />
-                  {photo.credit && (
-                    <p style={{ fontSize: 10, letterSpacing: '0.1em', color: 'var(--bark)', opacity: 0.6, marginTop: 4 }}>
-                      © {photo.credit}
-                    </p>
-                  )}
-                </div>
+          {/* Earlier festivals */}
+          <div style={{ marginTop: 48 }}>
+            <span className="label" style={{ marginBottom: 16 }}>Earlier Festival Performances</span>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 2 }}>
+              {festivalHistory.map((f, i) => (
+                <div key={i} className="festival-item">{f}</div>
               ))}
             </div>
           </div>
-        </section>
-      )}
+        </div>
+      </section>
     </main>
   )
 }

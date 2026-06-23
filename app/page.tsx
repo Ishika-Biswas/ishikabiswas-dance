@@ -1,6 +1,7 @@
 import { client, featuredProjectQuery, upcomingPerformancesQuery, siteSettingsQuery, urlFor } from '@/lib/sanity'
 import Image from 'next/image'
-import Link from 'next/link'
+import ScrollLink from '@/components/ScrollLink'
+
 
 export const revalidate = 60
 
@@ -52,7 +53,7 @@ export default async function Home() {
           <p style={{ fontSize: 16, color: 'var(--sand)', opacity: 0.75, maxWidth: 480, lineHeight: 1.7, marginBottom: 52 }}>
             {settings?.heroStatement || 'Twenty years inside the form. Now taking it outdoors, into public space, into conversation with the world as it actually is.'}
           </p>
-          <Link href="#nadi" style={{ display: 'inline-flex', alignItems: 'center', gap: 14, fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--cream)', textDecoration: 'none' }}>
+          <ScrollLink href="#nadi" style={{ display: "inline-flex", alignItems: "center", gap: 14, fontSize: 12, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--cream)", textDecoration: "none" }}>
             Discover NADI
             <span style={{ display: 'block', width: 48, height: 1, background: 'var(--gold)' }} />
           </Link>

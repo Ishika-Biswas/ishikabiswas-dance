@@ -1,7 +1,6 @@
 import { client, biographyQuery, teachingQuery } from '@/lib/sanity'
-import Image from 'next/image'
 import { urlFor } from '@/lib/sanity'
-import { PortableText } from 'next-sanity'
+import Image from 'next/image'
 
 export const revalidate = 60
 
@@ -16,27 +15,47 @@ async function getData() {
 export default async function About() {
   const { bio, teaching } = await getData()
 
+  const teachers = bio?.teachers || [
+    { name: 'Vidushi Saswati Sen', tradition: 'Kathak · Lucknow Gharana', period: '2021 – Continuing' },
+    { name: 'Guru Sampita Chatterjee', tradition: 'Kathak · Lucknow Gharana', period: '2000 – Continuing · 20+ years' },
+    { name: 'Vidushi Sharmila Mukherjee', tradition: 'Odissi', period: '2022 – Continuing' },
+    { name: 'Contemporary & Physical', tradition: 'Motionhouse · Aerial Impulse · Warrior Pathways', period: '2024' },
+  ]
+
+  const qualifications = bio?.qualifications || [
+    { institution: 'Pracheen Kala Kendra, Chandigarh', qualification: 'Sangeet Bhaskar', year: '2021', distinction: 'with Distinction' },
+    { institution: 'Prayag Sangeet Samiti', qualification: '4th year', distinction: 'with Distinction' },
+    { institution: 'Banichakra Kathak Dance Exam', qualification: 'First Position', distinction: '5th year' },
+  ]
+
+  const masterclasses = bio?.masterclasses || [
+    { artist: 'Pt. Birju Maharaj' },
+    { artist: 'Vidushi Kumudini Lakhia' },
+    { artist: 'Smt. Sanjukta Sinha' },
+    { artist: 'Vishal Krishna' },
+    { artist: 'Venessa Maria Mirza' },
+    { artist: 'Kalaripayattu · Warrior Pathways' },
+    { artist: 'Circus Aerial · Aerial Impulse 2024' },
+  ]
+
+  const tags = bio?.tags || ['Lucknow Gharana', 'Outdoor Arts', 'Climate & Ecology', 'Ensemble Work', 'Cardiff, Wales']
+
   return (
     <main>
-      <section style={{ background: 'var(--cream)', padding: '120px 0' }}>
-        <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 56px', display: 'grid', gridTemplateColumns: '320px 1fr', gap: 100, alignItems: 'start' }}>
+      <section className="about-section">
+        <div className="about-grid">
 
           {/* Sidebar */}
-          <div style={{ position: 'sticky', top: 120 }}>
+          <div className="about-sidebar">
             <span className="label">About</span>
-            <h1 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 'clamp(36px, 4vw, 56px)', fontWeight: 300, lineHeight: 1.1, color: 'var(--earth)', marginBottom: 32 }}>
+            <h1 className="about-sidebar-title">
               Kathak<br />Choreographer<br />&amp; Performer
             </h1>
-            {bio?.tags && (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 10, marginTop: 28 }}>
-                {bio.tags.map((tag: string, i: number) => (
-                  <div key={i} style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: 'var(--river)', display: 'flex', alignItems: 'center', gap: 12 }}>
-                    <span style={{ display: 'block', width: 18, height: 1, background: 'var(--gold)' }} />
-                    {tag}
-                  </div>
-                ))}
-              </div>
-            )}
+            <div>
+              {tags.map((tag: string, i: number) => (
+                <div key={i} className="about-tag">{tag}</div>
+              ))}
+            </div>
             {bio?.profileImage && (
               <div style={{ position: 'relative', width: '100%', aspectRatio: '4/5', marginTop: 40, borderRadius: 2, overflow: 'hidden' }}>
                 <Image src={urlFor(bio.profileImage).width(400).url()} alt="Ishika Biswas" fill style={{ objectFit: 'cover' }} />
@@ -45,77 +64,73 @@ export default async function About() {
           </div>
 
           {/* Body */}
-          <div>
-            <div style={{ fontSize: 17, lineHeight: 1.9, color: 'var(--earth)' }}>
-              {bio?.fullBio ? (
-                <PortableText value={bio.fullBio} />
-              ) : (
-                <>
-                  <p style={{ marginBottom: 24, opacity: 0.82 }}>I am a Kathak choreographer and performer based in Cardiff, Wales. Twenty years of rigorous training under Guru Sampita Chatterjee in the Lucknow Gharana tradition, and a continuing study with Vidushi Saswati Sen. The form is not a starting point for me — it is a living inheritance I have spent my life inside.</p>
-                  <p style={{ marginBottom: 24, opacity: 0.82 }}>In recent years I have been asking what happens when Kathak leaves the stage and stands in the world as it actually is. I take the tatkaar outdoors, onto grass, into public squares, where the ghungroos compete with wind and the chakkar has no wings to disappear into.</p>
-                  <p style={{ marginBottom: 24, opacity: 0.82 }}>My work sits at the intersection of classical Indian dance form, outdoor contemporary performance, live music, and live visual art. I hold a South Asian sacred geography and Welsh landscape in the same body — because I hold them in my own life.</p>
-                  <p style={{ opacity: 0.82 }}>I have performed across India and the UK, including at the Royal Birmingham Conservatoire, Welsh Parliament, St. Fagans National Museum Wales, and Prerona Dance Festival Kolkata. I teach classical Kathak and fusion styles across Cardiff through Kalakrishti Cultural Space.</p>
-                </>
-              )}
-            </div>
+          <div className="about-body-text">
+            <p>I am a Kathak choreographer and performer based in Cardiff, Wales. Twenty years of rigorous training under Guru Sampita Chatterjee in the Lucknow Gharana tradition, and a continuing study with Vidushi Saswati Sen. The form is not a starting point for me — it is a living inheritance I have spent my life inside.</p>
+            <p>In recent years I have been asking what happens when Kathak leaves the stage and stands in the world as it actually is. I take the tatkaar outdoors, onto grass, into public squares, where the ghungroos compete with wind and the chakkar has no wings to disappear into. The form carries differently in open air.</p>
+            <p>My work sits at the intersection of classical Indian dance form, outdoor contemporary performance, live music, and live visual art. I hold a South Asian sacred geography and Welsh landscape in the same body — because I hold them in my own life. That is where the work comes from.</p>
+            <p>I have performed across India and the UK, including at the Royal Birmingham Conservatoire, Welsh Parliament, St. Fagans National Museum Wales, Techniquest Cardiff, and Prerona Dance Festival Kolkata. I teach classical Kathak and fusion styles across Cardiff through Kalakrishti Cultural Space.</p>
 
             {/* Training */}
-            {bio?.teachers && (
-              <div style={{ marginTop: 56, paddingTop: 56, borderTop: '1px solid var(--sand)' }}>
-                <span className="label">Training &amp; Lineage</span>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, marginTop: 28 }}>
-                  {bio.teachers.map((t: any, i: number) => (
-                    <div key={i} style={{ background: 'var(--white)', padding: '28px 24px' }}>
-                      <p style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 20, fontWeight: 400, color: 'var(--earth)', marginBottom: 4 }}>{t.name}</p>
-                      <p style={{ fontSize: 13, color: 'var(--bark)', opacity: 0.75, lineHeight: 1.5 }}>{t.tradition}{t.period ? ` · ${t.period}` : ''}</p>
-                    </div>
-                  ))}
-                </div>
+            <div className="section-divider">
+              <span className="label">Training &amp; Lineage</span>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 2, marginTop: 16 }}>
+                {teachers.map((t: any, i: number) => (
+                  <div key={i} className="training-card">
+                    <p className="training-card-name">{t.name}</p>
+                    <p className="training-card-detail">{t.tradition}{t.period ? ` · ${t.period}` : ''}</p>
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
 
             {/* Qualifications */}
-            {bio?.qualifications && (
-              <div style={{ marginTop: 56, paddingTop: 56, borderTop: '1px solid var(--sand)' }}>
-                <span className="label">Formal Qualifications</span>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginTop: 20 }}>
-                  {bio.qualifications.map((q: any, i: number) => (
-                    <div key={i} style={{ fontSize: 14, color: 'var(--earth)', opacity: 0.75, paddingLeft: 16, borderLeft: '2px solid var(--gold)', lineHeight: 1.5 }}>
-                      {q.institution} — {q.qualification}{q.year ? ` (${q.year})` : ''}{q.distinction ? ` · ${q.distinction}` : ''}
-                    </div>
-                  ))}
-                </div>
+            <div className="section-divider">
+              <span className="label">Formal Qualifications</span>
+              <div style={{ marginTop: 16 }}>
+                {qualifications.map((q: any, i: number) => (
+                  <div key={i} className="qual-item">
+                    {q.institution} — {q.qualification}{q.year ? ` (${q.year})` : ''}{q.distinction ? ` · ${q.distinction}` : ''}
+                  </div>
+                ))}
               </div>
-            )}
+            </div>
 
             {/* Masterclasses */}
-            {bio?.masterclasses && (
-              <div style={{ marginTop: 56, paddingTop: 56, borderTop: '1px solid var(--sand)' }}>
-                <span className="label">Masterclasses &amp; Workshops</span>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 20 }}>
-                  {bio.masterclasses.map((m: any, i: number) => (
-                    <span key={i} style={{ fontSize: 12, background: 'var(--sand)', color: 'var(--earth-mid)', padding: '6px 14px', borderRadius: 2, letterSpacing: '0.04em' }}>
-                      {m.artist}
-                    </span>
-                  ))}
-                </div>
+            <div className="section-divider">
+              <span className="label">Masterclasses &amp; Workshops</span>
+              <div style={{ marginTop: 16 }}>
+                {masterclasses.map((m: any, i: number) => (
+                  <span key={i} className="master-tag">{m.artist}</span>
+                ))}
               </div>
-            )}
+            </div>
 
             {/* Teaching */}
             {teaching?.length > 0 && (
-              <div style={{ marginTop: 56, paddingTop: 56, borderTop: '1px solid var(--sand)' }}>
+              <div className="section-divider">
                 <span className="label">Teaching</span>
                 {teaching.map((t: any, i: number) => (
                   <div key={i} style={{ marginBottom: 32, paddingBottom: 32, borderBottom: '1px solid var(--sand)' }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
-                      <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 400 }}>{t.organisation}</h3>
-                      {t.current && <span style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--river)', opacity: 0.8 }}>Current</span>}
+                      <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 400, color: 'var(--earth)' }}>{t.organisation}</h3>
+                      {t.current && <span style={{ fontSize: 10, letterSpacing: '0.15em', textTransform: 'uppercase', color: 'var(--river)' }}>Current</span>}
                     </div>
-                    <p style={{ fontSize: 13, color: 'var(--bark)', opacity: 0.7, marginBottom: 8 }}>{t.role}{t.location ? ` · ${t.location}` : ''}{t.period ? ` · ${t.period}` : ''}</p>
-                    {t.description && <p style={{ fontSize: 15, color: 'var(--earth)', opacity: 0.75, lineHeight: 1.7 }}>{t.description}</p>}
+                    <p style={{ fontSize: 13, color: 'var(--bark)', opacity: 0.75, marginBottom: 8 }}>{t.role}{t.location ? ` · ${t.location}` : ''}{t.period ? ` · ${t.period}` : ''}</p>
+                    {t.description && <p style={{ fontSize: 15, color: 'var(--earth)', opacity: 0.8, lineHeight: 1.7 }}>{t.description}</p>}
                   </div>
                 ))}
+              </div>
+            )}
+
+            {/* Default teaching if none in Sanity */}
+            {!teaching?.length && (
+              <div className="section-divider">
+                <span className="label">Teaching</span>
+                <div style={{ marginBottom: 24 }}>
+                  <h3 style={{ fontFamily: "'Cormorant Garamond', serif", fontSize: 22, fontWeight: 400, color: 'var(--earth)', marginBottom: 8 }}>Kalakrishti Cultural Space</h3>
+                  <p style={{ fontSize: 13, color: 'var(--bark)', opacity: 0.75, marginBottom: 8 }}>Dance Teacher &amp; Instructor · Cardiff · 2025–Present</p>
+                  <p style={{ fontSize: 15, color: 'var(--earth)', opacity: 0.8, lineHeight: 1.7 }}>Classical Kathak and fusion styles for children (6–12), teens (13–18), and adults (18+).</p>
+                </div>
               </div>
             )}
           </div>
