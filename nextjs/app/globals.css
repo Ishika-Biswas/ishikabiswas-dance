@@ -1,0 +1,70 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --cream: #F2EDE4;
+  --parchment: #EDE5D8;
+  --sand: #DDD0BC;
+  --bark: #8C6E4B;
+  --clay: #B8724A;
+  --earth: #2E1F12;
+  --earth-mid: #4A3020;
+  --river: #3D6060;
+  --mist: #7A9898;
+  --gold: #C9A96E;
+  --gold-light: #E2C99A;
+  --white: #FAF8F3;
+  --ink: #1A0F06;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  background: var(--cream);
+  color: var(--earth);
+  overflow-x: hidden;
+  line-height: 1.7;
+}
+
+/* Grain texture overlay */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: multiply;
+}
+
+.serif { font-family: 'Cormorant Garamond', serif; }
+
+.label {
+  font-size: 10px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--bark);
+  opacity: 0.7;
+  display: block;
+  margin-bottom: 16px;
+}
+
+.label-river { color: var(--river); opacity: 0.8; }
+.label-gold { color: var(--gold); opacity: 0.9; }
+
+/* Canvas panorama strips */
+.cs { flex: 1; transition: flex 0.35s ease; cursor: default; }
+.cs:hover { flex: 1.6; }
+.cs-1 { background: linear-gradient(160deg, #7B9EA0, #5A7A6C, #8B7050); }
+.cs-2 { background: linear-gradient(140deg, #9B8060, #C9A96E, #6A8A7A); }
+.cs-3 { background: linear-gradient(155deg, #C9A96E, #B8724A, #7A5030); }
+.cs-4 { background: linear-gradient(145deg, #2E1F12, #4A2A18, #7A4A28); opacity: 0.9; }
+.cs-5 { background: linear-gradient(140deg, #A09060, #C9A96E, #7A9070); }
+.cs-6 { background: linear-gradient(160deg, #6A8A80, #5A7A70, #8B7050); }
