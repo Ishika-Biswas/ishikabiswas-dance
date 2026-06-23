@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ishika Biswas — Kathak Choreographer & Performer</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+
+:root{
+  --cream:#F2EDE4;
+  --parchment:#EDE5D8;
+  --sand:#DDD0BC;
+  --bark:#8C6E4B;
+  --clay:#B8724A;
+  --earth:#2E1F12;
+  --earth-mid:#4A3020;
+  --river:#3D6060;
+  --mist:#7A9898;
+  --gold:#C9A96E;
+  --gold-light:#E2C99A;
+  --white:#FAF8F3;
+  --ink:#1A0F06;
+}
+
+body{
+  font-family:'DM Sans',sans-serif;
+  font-weight:300;
+  background:var(--cream);
+  color:var(--earth);
+  overflow-x:hidden;
+  line-height:1.7;
+}
+
+/* TEXTURE */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:9999;mix-blend-mode:multiply;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;justify-content:space-between;align-items:center;
+  padding:22px 56px;
+  transition:background 0.4s, backdrop-filter 0.4s;
+}
+nav.scrolled{
+  background:rgba(242,237,228,0.92);
+  backdrop-filter:blur(12px);
+  border-bottom:1px solid rgba(140,110,75,0.12);
+}
+.nav-logo{
+  font-family:'Cormorant Garamond',serif;
+  font-size:19px;font-weight:400;
+  letter-spacing:0.06em;
+  color:var(--earth);text-decoration:none;
+}
+.nav-right{display:flex;align-items:center;gap:40px}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{
+  font-size:12px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--earth);text-decoration:none;opacity:0.6;
+  transition:opacity 0.2s;
+}
+.nav-links a:hover{opacity:1}
+
+/* ── HERO ── */
+#home{
+  min-height:100vh;
+  background:var(--ink);
+  display:grid;grid-template-rows:1fr auto;
+  position:relative;overflow:hidden;
+}
+.hero-bg{
+  position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 55% 70% at 65% 45%, #3D2810 0%, transparent 55%),
+    radial-gradient(ellipse 35% 50% at 15% 75%, #1A3535 0%, transparent 45%),
+    radial-gradient(ellipse 40% 40% at 85% 85%, #2A1A0A 0%, transparent 50%),
+    var(--ink);
+}
+.hero-ripples{
+  position:absolute;bottom:0;left:0;right:0;height:320px;overflow:hidden;
+}
+.hero-ripples svg{width:100%;height:100%;opacity:0.12}
+
+.hero-content{
+  position:relative;z-index:2;
+  padding:140px 56px 60px;
+  display:flex;flex-direction:column;
+  justify-content:flex-end;
+  max-width:1000px;
+}
+.hero-eyebrow{
+  font-size:11px;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:24px;opacity:0.85;
+}
+.hero-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(60px,9vw,108px);
+  font-weight:300;line-height:0.92;
+  color:var(--cream);letter-spacing:-0.015em;
+  margin-bottom:36px;
+}
+.hero-name em{font-style:italic;color:var(--gold)}
+.hero-sub{
+  font-size:16px;color:var(--sand);opacity:0.75;
+  max-width:480px;line-height:1.7;margin-bottom:52px;
+}
+.hero-cta{
+  display:inline-flex;align-items:center;gap:14px;
+  font-size:12px;letter-spacing:0.14em;text-transform:uppercase;
+  color:var(--cream);text-decoration:none;
+  transition:color 0.2s;
+}
+.hero-cta::after{
+  content:'';display:block;width:48px;height:1px;
+  background:var(--gold);transition:width 0.3s;
+}
+.hero-cta:hover{color:var(--gold)}
+.hero-cta:hover::after{width:72px}
+
+.hero-bottom{
+  position:relative;z-index:2;
+  padding:28px 56px;
+  display:flex;justify-content:space-between;align-items:flex-end;
+}
+.hero-scroll{
+  display:flex;align-items:center;gap:14px;
+  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--sand);opacity:0.4;
+}
+.hero-scroll-line{width:32px;height:1px;background:var(--gold);opacity:0.5}
+.hero-location{
+  font-size:11px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--sand);opacity:0.35;
+}
+
+/* ── SHARED ── */
+.section-wrap{max-width:1160px;margin:0 auto;padding:0 56px}
+
+.label{
+  font-size:10px;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--bark);opacity:0.7;margin-bottom:16px;
+  display:block;
+}
+.label-river{color:var(--river);opacity:0.8}
+.label-gold{color:var(--gold);opacity:0.9}
+
+.serif{font-family:'Cormorant Garamond',serif}
+
+/* ── NADI ── */
+#nadi{background:var(--white);padding:120px 0 0}
+
+.nadi-intro{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:80px;padding:0 56px 80px;
+  max-width:1160px;margin:0 auto;
+}
+.nadi-title-block{}
+.nadi-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(52px,7vw,86px);
+  font-weight:300;line-height:0.95;
+  color:var(--earth);margin-bottom:10px;
+}
+.nadi-hindi{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(32px,4vw,50px);
+  font-weight:300;font-style:italic;
+  color:var(--gold);margin-bottom:40px;
+}
+.nadi-desc{
+  font-size:17px;line-height:1.85;
+  color:var(--earth);opacity:0.8;
+  margin-bottom:20px;
+}
+.nadi-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-size:21px;font-style:italic;font-weight:300;
+  line-height:1.65;color:var(--river);
+  border-left:2px solid var(--gold);
+  padding-left:24px;margin:36px 0;
+}
+.nadi-right{display:flex;flex-direction:column;gap:40px}
+
+/* Canvas panorama */
+.canvas-pano{
+  width:100%;height:180px;
+  display:flex;gap:3px;border-radius:4px;overflow:hidden;
+}
+.cs{flex:1;transition:flex 0.35s ease;cursor:default;position:relative}
+.cs:hover{flex:1.6}
+.cs-1{background:linear-gradient(160deg,#7B9EA0,#5A7A6C,#8B7050)}
+.cs-2{background:linear-gradient(140deg,#9B8060,#C9A96E,#6A8A7A)}
+.cs-3{background:linear-gradient(155deg,#C9A96E,#B8724A,#7A5030)}
+.cs-4{background:linear-gradient(145deg,#2E1F12,#4A2A18,#7A4A28);opacity:0.9}
+.cs-5{background:linear-gradient(140deg,#A09060,#C9A96E,#7A9070)}
+.cs-6{background:linear-gradient(160deg,#6A8A80,#5A7A70,#8B7050)}
+
+.canvas-caption{
+  font-size:10px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--bark);opacity:0.5;margin-top:8px;
+}
+
+/* Ensemble */
+.ensemble{}
+.e-row{
+  display:flex;justify-content:space-between;align-items:baseline;
+  padding:13px 0;border-bottom:1px solid var(--sand);
+  font-size:15px;
+}
+.e-name{font-weight:400;color:var(--earth)}
+.e-role{
+  font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
+  color:var(--bark);opacity:0.65;
+}
+
+/* Supporters */
+.supporters{
+  font-size:13px;color:var(--earth);
+  opacity:0.6;line-height:2.1;
+}
+
+/* Performances band */
+.perf-band{
+  background:var(--earth);
+  padding:64px 56px;
+}
+.perf-inner{
+  max-width:1160px;margin:0 auto;
+  display:flex;gap:0;align-items:stretch;
+}
+.perf-item{
+  flex:1;padding:0 48px;
+  border-right:1px solid rgba(201,169,110,0.2);
+}
+.perf-item:first-child{padding-left:0}
+.perf-item:last-child{border-right:none}
+.perf-date{
+  font-family:'Cormorant Garamond',serif;
+  font-size:42px;font-weight:300;
+  color:var(--cream);line-height:1;margin-bottom:12px;
+}
+.perf-venue{font-size:14px;color:var(--sand);opacity:0.7;line-height:1.6}
+
+/* Nadi meta */
+.nadi-meta-block{
+  background:var(--parchment);
+  padding:120px 56px;
+}
+.nadi-meta-inner{
+  max-width:1160px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:60px;
+}
+.meta-col{}
+.meta-row{
+  padding:16px 0;border-bottom:1px solid rgba(140,110,75,0.2);
+  display:flex;gap:20px;font-size:14px;
+}
+.meta-label{
+  min-width:100px;text-transform:uppercase;
+  letter-spacing:0.08em;font-size:11px;
+  color:var(--bark);opacity:0.65;padding-top:2px;
+}
+.meta-val{color:var(--earth);line-height:1.5}
+
+/* ── ABOUT ── */
+#about{background:var(--cream);padding:120px 0}
+.about-inner{
+  max-width:1160px;margin:0 auto;padding:0 56px;
+  display:grid;grid-template-columns:320px 1fr;gap:100px;
+}
+.about-left{position:sticky;top:120px;align-self:start}
+.about-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(36px,4vw,56px);font-weight:300;
+  line-height:1.1;color:var(--earth);margin-bottom:32px;
+}
+.tags{display:flex;flex-direction:column;gap:10px;margin-top:28px}
+.tag{
+  font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+  color:var(--river);display:flex;align-items:center;gap:12px;
+}
+.tag::before{content:'';display:block;width:18px;height:1px;background:var(--gold)}
+
+.about-body{font-size:17px;line-height:1.9;color:var(--earth)}
+.about-body p{margin-bottom:24px;opacity:0.82}
+.about-body p:last-child{margin-bottom:0}
+
+/* Training */
+.training-section{
+  margin-top:56px;padding-top:56px;
+  border-top:1px solid var(--sand);
+}
+.training-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:2px;margin-top:28px;
+}
+.training-card{
+  background:var(--white);
+  padding:28px 24px;
+}
+.training-name{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;font-weight:400;
+  color:var(--earth);margin-bottom:4px;
+}
+.training-detail{
+  font-size:13px;color:var(--bark);
+  opacity:0.75;line-height:1.5;
+}
+
+/* Qualifications */
+.qual-list{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+.qual-item{
+  font-size:14px;color:var(--earth);opacity:0.75;
+  padding-left:16px;border-left:2px solid var(--gold);
+  line-height:1.5;
+}
+
+/* Masters */
+.masters-list{
+  display:flex;flex-wrap:wrap;gap:8px;margin-top:20px;
+}
+.master-tag{
+  font-size:12px;
+  background:var(--sand);color:var(--earth-mid);
+  padding:6px 14px;border-radius:2px;
+  letter-spacing:0.04em;
+}
+
+/* ── WORK ── */
+#work{background:var(--parchment);padding:120px 0}
+.work-inner{max-width:1160px;margin:0 auto;padding:0 56px}
+.work-header{
+  display:flex;justify-content:space-between;align-items:baseline;
+  margin-bottom:56px;
+}
+.section-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(42px,5vw,64px);
+  font-weight:300;color:var(--earth);
+}
+
+/* Performance timeline */
+.timeline{display:flex;flex-direction:column;gap:2px;margin-bottom:2px}
+.tl-item{
+  display:grid;grid-template-columns:100px 1fr auto;
+  gap:32px;align-items:start;
+  background:var(--white);
+  padding:28px 32px;
+  transition:background 0.2s;
+}
+.tl-item:hover{background:var(--cream)}
+.tl-item.featured{
+  background:var(--earth);
+  grid-template-columns:100px 1fr auto;
+}
+.tl-item.featured:hover{background:var(--earth-mid)}
+.tl-year{
+  font-family:'Cormorant Garamond',serif;
+  font-size:28px;font-weight:300;
+  color:var(--bark);line-height:1;
+  padding-top:2px;
+}
+.tl-item.featured .tl-year{color:var(--gold)}
+.tl-body{}
+.tl-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:22px;font-weight:400;
+  color:var(--earth);margin-bottom:6px;line-height:1.2;
+}
+.tl-item.featured .tl-title{color:var(--cream);font-size:26px}
+.tl-desc{font-size:14px;color:var(--earth);opacity:0.65;line-height:1.6}
+.tl-item.featured .tl-desc{color:var(--sand);opacity:0.8}
+.tl-tag{
+  font-size:10px;letter-spacing:0.15em;text-transform:uppercase;
+  color:var(--river);background:rgba(61,96,96,0.08);
+  padding:5px 10px;border-radius:2px;
+  align-self:start;white-space:nowrap;
+}
+.tl-item.featured .tl-tag{color:var(--gold);background:rgba(201,169,110,0.12)}
+
+/* Earlier festivals */
+.festival-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:2px;margin-top:2px;
+}
+.festival-item{
+  background:var(--sand);padding:24px;
+  font-size:14px;color:var(--earth);opacity:0.75;
+  line-height:1.5;
+}
+
+/* ── CONTACT ── */
+#contact{background:var(--ink);padding:120px 0 80px}
+.contact-inner{
+  max-width:800px;margin:0 auto;
+  padding:0 56px;text-align:center;
+}
+.contact-eyebrow{
+  font-size:11px;letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--gold);margin-bottom:28px;opacity:0.8;
+}
+.contact-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(40px,6vw,72px);font-weight:300;
+  color:var(--cream);line-height:1.1;margin-bottom:28px;
+}
+.contact-body{
+  font-size:16px;color:var(--sand);
+  opacity:0.7;margin-bottom:52px;line-height:1.7;
+}
+.contact-email{
+  display:inline-block;
+  font-family:'Cormorant Garamond',serif;
+  font-size:24px;font-style:italic;
+  color:var(--gold);text-decoration:none;
+  border-bottom:1px solid rgba(201,169,110,0.35);
+  padding-bottom:4px;transition:border-color 0.2s;
+}
+.contact-email:hover{border-color:var(--gold)}
+.contact-phone{
+  display:block;margin-top:16px;
+  font-size:15px;color:var(--sand);opacity:0.5;
+  text-decoration:none;letter-spacing:0.05em;
+}
+.contact-meta{
+  margin-top:72px;padding-top:48px;
+  border-top:1px solid rgba(255,255,255,0.06);
+  display:grid;grid-template-columns:1fr 1fr 1fr;gap:32px;
+  text-align:left;
+}
+.contact-meta-item{}
+.contact-meta-label{
+  font-size:10px;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--gold);opacity:0.5;margin-bottom:8px;
+}
+.contact-meta-val{
+  font-size:14px;color:var(--sand);opacity:0.6;line-height:1.6;
+}
+
+footer{
+  background:var(--ink);
+  border-top:1px solid rgba(255,255,255,0.04);
+  padding:20px 56px;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.footer-copy{font-size:11px;color:var(--sand);opacity:0.25;letter-spacing:0.05em}
+.footer-hindi{
+  font-family:'Cormorant Garamond',serif;
+  font-size:20px;color:var(--gold);opacity:0.3;
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  nav{padding:18px 24px}
+  .hero-content,.hero-bottom{padding-left:24px;padding-right:24px}
+  .section-wrap,.about-inner,.work-inner,.contact-inner,
+  .nadi-intro,.perf-band,.nadi-meta-block,.about-inner{padding-left:24px;padding-right:24px}
+  .nadi-intro{grid-template-columns:1fr;gap:48px}
+  .nadi-meta-inner{grid-template-columns:1fr;gap:0}
+  .about-inner{grid-template-columns:1fr;gap:48px}
+  .about-left{position:static}
+  .training-grid{grid-template-columns:1fr}
+  .tl-item{grid-template-columns:60px 1fr;gap:20px}
+  .tl-tag{display:none}
+  .festival-grid{grid-template-columns:1fr 1fr}
+  .perf-inner{flex-direction:column;gap:32px}
+  .perf-item{border-right:none;border-bottom:1px solid rgba(201,169,110,0.2);padding:0 0 32px}
+  .perf-item:last-child{border-bottom:none}
+  .contact-meta{grid-template-columns:1fr;gap:24px}
+  footer{padding:16px 24px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .cs,.hero-cta::after{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#home" class="nav-logo">Ishika Biswas</a>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#nadi">NADI</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-ripples">
+    <svg viewBox="0 0 1400 320" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <path d="M-100,160 C150,80 350,240 600,160 C850,80 1050,240 1300,160 C1380,135 1410,148 1500,155" stroke="#C9A96E" stroke-width="1.5" fill="none"/>
+      <path d="M-100,190 C130,110 330,270 580,190 C830,110 1030,270 1280,190 C1370,162 1405,175 1500,182" stroke="#3D6060" stroke-width="1" fill="none"/>
+      <path d="M-100,130 C170,50 370,210 620,130 C870,50 1070,210 1320,130 C1390,105 1418,118 1500,125" stroke="#8C6E4B" stroke-width="0.8" fill="none"/>
+      <path d="M-100,220 C110,140 310,300 560,220 C810,140 1010,300 1260,220 C1360,190 1400,202 1500,208" stroke="#C9A96E" stroke-width="0.5" fill="none" opacity="0.4"/>
+      <path d="M-100,100 C190,20 390,180 640,100 C890,20 1090,180 1340,100 C1400,78 1424,90 1500,97" stroke="#3D6060" stroke-width="0.5" fill="none" opacity="0.3"/>
+      <path d="M-100,250 C90,170 290,330 540,250 C790,170 990,330 1240,250 C1350,218 1395,230 1500,236" stroke="#8C6E4B" stroke-width="0.4" fill="none" opacity="0.25"/>
+    </svg>
+  </div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Kathak Choreographer &amp; Performer · Cardiff, Wales</p>
+    <h1 class="hero-name">Ishika<br><em>Biswas</em></h1>
+    <p class="hero-sub">Twenty years inside the form. Now taking it outdoors, into public space, into conversation with the world as it actually is.</p>
+    <a href="#nadi" class="hero-cta">Discover NADI</a>
+  </div>
+  <div class="hero-bottom">
+    <div class="hero-scroll"><div class="hero-scroll-line"></div><span>Scroll</span></div>
+    <span class="hero-location">Cardiff · Wales · UK</span>
+  </div>
+</section>
+
+<!-- NADI -->
+<section id="nadi">
+  <div class="nadi-intro">
+    <div class="nadi-title-block">
+      <span class="label label-river">Current Work · Co-commissioned · 2026</span>
+      <h2 class="nadi-title">NADI</h2>
+      <p class="nadi-hindi">नदी</p>
+      <p class="nadi-desc">A Kathak-contemporary outdoor ensemble performance exploring what it means to be in relationship with something you love and are destroying at the same time.</p>
+      <p class="nadi-desc">Five artists on grass, in public space, without a stage. A vocalist calls. Everyone joins — clapping, swaying, back to back. Then a painter picks up a brush. That single act of representation is the first step of the separation. And everything that follows is the consequence.</p>
+      <blockquote class="nadi-quote">The river is not saved. The river is still at risk. But you have stood beside her for twenty minutes, and the body remembers what it stands beside.</blockquote>
+      <p class="nadi-desc">The piece holds the Ganga and the Taff — the river running through Cardiff — in the same body. That is not a concept. That is a fact of life.</p>
+    </div>
+    <div class="nadi-right">
+      <div>
+        <span class="label">Six-Canvas Horizontal Panorama · Badhon Khan</span>
+        <div class="canvas-pano">
+          <div class="cs cs-1"></div>
+          <div class="cs cs-2"></div>
+          <div class="cs cs-3"></div>
+          <div class="cs cs-4"></div>
+          <div class="cs cs-5"></div>
+          <div class="cs cs-6"></div>
+        </div>
+        <p class="canvas-caption">100×30cm each · Middle two canvases desecrated each performance · Repainted between shows</p>
+      </div>
+
+      <div class="ensemble">
+        <span class="label">The Ensemble</span>
+        <div class="e-row"><span class="e-name">Ishika Biswas</span><span class="e-role">Choreography &amp; Performance</span></div>
+        <div class="e-row"><span class="e-name">Dorka Zátonyi</span><span class="e-role">Contemporary Dance</span></div>
+        <div class="e-row"><span class="e-name">Badhon Khan</span><span class="e-role">Live Painting</span></div>
+        <div class="e-row"><span class="e-name">Ashish Kumar</span><span class="e-role">Tabla</span></div>
+        <div class="e-row"><span class="e-name">Jyoti Prakash Roy</span><span class="e-role">Voice</span></div>
+      </div>
+
+      <div class="ensemble">
+        <span class="label">Creative Team</span>
+        <div class="e-row"><span class="e-name">Jo Fong</span><span class="e-role">Artistic Advisor</span></div>
+        <div class="e-row"><span class="e-name">Shiladitya Sinha</span><span class="e-role">Recorded Voice</span></div>
+        <div class="e-row"><span class="e-name">Ishan Roy</span><span class="e-role">Music Editor</span></div>
+        <div class="e-row"><span class="e-name">Ed Choo</span><span class="e-role">Photography</span></div>
+      </div>
+
+      <div>
+        <span class="label">Supported By</span>
+        <p class="supporters">
+          Co-commissioned by Inspirate &amp; ArtReach<br>
+          Supported by Chapter Arts Centre Cardiff<br>
+          Supported by Green Squirrel<br>
+          Rehearsals facilitated by Cardiff Council Parks &amp; Sports
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERFORMANCES BAND -->
+  <div class="perf-band">
+    <div class="perf-inner">
+      <div class="perf-item">
+        <span class="label label-gold">R&amp;D Sharing</span>
+        <p class="perf-date">4–5 July 2026</p>
+        <p class="perf-venue">An Indian Summer Festival<br>Jubilee Square, Leicester</p>
+      </div>
+      <div class="perf-item">
+        <span class="label label-gold">R&amp;D Sharing</span>
+        <p class="perf-date">October 2026</p>
+        <p class="perf-venue">Journeys Festival International<br>Leicester</p>
+      </div>
+      <div class="perf-item">
+        <span class="label label-gold">Full Production</span>
+        <p class="perf-date">2027</p>
+        <p class="perf-venue">UK Outdoor Tour<br>Without Walls application in progress</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- META -->
+  <div class="nadi-meta-block">
+    <div class="nadi-meta-inner">
+      <div class="meta-col">
+        <span class="label">Production</span>
+        <div class="meta-row"><span class="meta-label">Duration</span><span class="meta-val">16–20 minutes</span></div>
+        <div class="meta-row"><span class="meta-label">Format</span><span class="meta-val">Outdoor · Ensemble · Grass performance area</span></div>
+        <div class="meta-row"><span class="meta-label">Movements</span><span class="meta-val">Srishti · Sankat · Smriti · Sankalpa</span></div>
+        <div class="meta-row"><span class="meta-label">Commission</span><span class="meta-val">Inspirate &amp; ArtReach</span></div>
+      </div>
+      <div class="meta-col">
+        <span class="label">Artistic Approach</span>
+        <div class="meta-row"><span class="meta-label">Form</span><span class="meta-val">Kathak-Contemporary</span></div>
+        <div class="meta-row"><span class="meta-label">Languages</span><span class="meta-val">Hindi · Braj · English · Welsh river ecology</span></div>
+        <div class="meta-row"><span class="meta-label">Music</span><span class="meta-val">Live tabla · Live voice · Raag Yaman bandish</span></div>
+        <div class="meta-row"><span class="meta-label">Visual</span><span class="meta-val">Live painting · Six-canvas panorama</span></div>
+      </div>
+      <div class="meta-col">
+        <span class="label">Themes</span>
+        <div class="meta-row"><span class="meta-label">Rivers</span><span class="meta-val">Ganga · Yamuna · River Taff</span></div>
+        <div class="meta-row"><span class="meta-label">Subjects</span><span class="meta-val">Climate grief · Sacred ecology · Memory · Devotion and destruction</span></div>
+        <div class="meta-row"><span class="meta-label">Questions</span><span class="meta-val">What does it mean to love something you are destroying?</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <div class="about-left">
+      <span class="label">About</span>
+      <h2 class="about-title">Kathak<br>Choreographer<br>&amp; Performer</h2>
+      <div class="tags">
+        <span class="tag">Lucknow Gharana</span>
+        <span class="tag">Outdoor Arts</span>
+        <span class="tag">Climate &amp; Ecology</span>
+        <span class="tag">Ensemble Work</span>
+        <span class="tag">Cardiff, Wales</span>
+      </div>
+    </div>
+
+    <div>
+      <div class="about-body">
+        <p>I am a Kathak choreographer and performer based in Cardiff, Wales. Twenty years of rigorous training under Guru Sampita Chatterjee in the Lucknow Gharana tradition, and a continuing study with Vidushi Saswati Sen. The form is not a starting point for me — it is a living inheritance I have spent my life inside.</p>
+        <p>In recent years I have been asking what happens when Kathak leaves the stage and stands in the world as it actually is. I take the tatkaar outdoors, onto grass, into public squares, where the ghungroos compete with wind and the chakkar has no wings to disappear into. The form carries differently in open air. It means something different when there is no proscenium, no darkness, no permission structure of a theatre between the work and the world.</p>
+        <p>My work sits at the intersection of classical Indian dance form, outdoor contemporary performance, live music, and live visual art. I hold a South Asian sacred geography and Welsh landscape in the same body — because I hold them in my own life. That is where the work comes from.</p>
+        <p>I have performed across India and the UK, including at the Royal Birmingham Conservatoire, Welsh Parliament, St. Fagans National Museum Wales, Techniquest Cardiff, and Prerona Dance Festival Kolkata. I teach classical Kathak and fusion styles across Cardiff through Kalakrishti Cultural Space.</p>
+      </div>
+
+      <!-- Training -->
+      <div class="training-section">
+        <span class="label">Training &amp; Lineage</span>
+        <div class="training-grid">
+          <div class="training-card">
+            <p class="training-name">Vidushi Saswati Sen</p>
+            <p class="training-detail">Kathak · Lucknow Gharana<br>2021 – Continuing</p>
+          </div>
+          <div class="training-card">
+            <p class="training-name">Guru Sampita Chatterjee</p>
+            <p class="training-detail">Kathak · Lucknow Gharana<br>2000 – Continuing · 20+ years</p>
+          </div>
+          <div class="training-card">
+            <p class="training-name">Vidushi Sharmila Mukherjee</p>
+            <p class="training-detail">Odissi<br>2022 – Continuing</p>
+          </div>
+          <div class="training-card">
+            <p class="training-name">Contemporary &amp; Physical</p>
+            <p class="training-detail">Motionhouse · Mary Carbonara<br>Stefano Fardelli · Aerial Impulse · Warrior Pathways</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Qualifications -->
+      <div class="training-section">
+        <span class="label">Formal Qualifications</span>
+        <div class="qual-list">
+          <div class="qual-item">Pracheen Kala Kendra, Chandigarh — Sangeet Bhaskar (2021) with Distinction</div>
+          <div class="qual-item">Prayag Sangeet Samiti — 4th year with Distinction</div>
+          <div class="qual-item">Banichakra Kathak Dance Exam — First Position, 5th year</div>
+        </div>
+      </div>
+
+      <!-- Masters -->
+      <div class="training-section">
+        <span class="label">Masterclasses &amp; Workshops</span>
+        <div class="masters-list">
+          <span class="master-tag">Pt. Birju Maharaj</span>
+          <span class="master-tag">Vidushi Kumudini Lakhia</span>
+          <span class="master-tag">Smt. Sanjukta Sinha</span>
+          <span class="master-tag">Vishal Krishna</span>
+          <span class="master-tag">Venessa Maria Mirza</span>
+          <span class="master-tag">Kalaripayattu · Warrior Pathways</span>
+          <span class="master-tag">Circus Aerial · Aerial Impulse 2024</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="work-inner">
+    <div class="work-header">
+      <h2 class="section-title">Work</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-item featured">
+        <p class="tl-year">2026</p>
+        <div class="tl-body">
+          <h3 class="tl-title">NADI — नदी</h3>
+          <p class="tl-desc">Outdoor Kathak-contemporary ensemble performance. Co-commissioned by Inspirate &amp; ArtReach. Performing An Indian Summer Festival Leicester and Journeys Festival International 2026. Without Walls 2027 application in progress.</p>
+        </div>
+        <span class="tl-tag">Current · Commissioned</span>
+      </div>
+
+      <div class="tl-item">
+        <p class="tl-year">2025–26</p>
+        <div class="tl-body">
+          <h3 class="tl-title">Anantashakti — The Eternal Force Within</h3>
+          <p class="tl-desc">Lead dancer and choreographer. UK Bengali Convention at Royal Birmingham Conservatoire (Aug 2025), Surabhi at St. Cyres Hall Cardiff (Oct 2025), Navin Kala Nritya Mahotsav ICCR Kolkata (Jan 2026).</p>
+        </div>
+        <span class="tl-tag">Tour</span>
+      </div>
+
+      <div class="tl-item">
+        <p class="tl-year">2025–26</p>
+        <div class="tl-body">
+          <h3 class="tl-title">Making a Clearing</h3>
+          <p class="tl-desc">Jo Fong initiative, Cardiff. December 2025 – April 2026. Interdisciplinary outdoor work in collaboration with Cardiff-based artists.</p>
+        </div>
+        <span class="tl-tag">Collaboration</span>
+      </div>
+
+      <div class="tl-item">
+        <p class="tl-year">2025</p>
+        <div class="tl-body">
+          <h3 class="tl-title">Solo Kathak Recital · Royal College of Psychiatry Annual Conference</h3>
+          <p class="tl-desc">Techniquest Cardiff. November 2025. Invited solo performance at national medical conference.</p>
+        </div>
+        <span class="tl-tag">Solo</span>
+      </div>
+
+      <div class="tl-item">
+        <p class="tl-year">2025</p>
+        <div class="tl-body">
+          <h3 class="tl-title">Diwali Festival &amp; In the Quest of Peace Within</h3>
+          <p class="tl-desc">St. Fagans National Museum Wales and Welsh Parliament, Cardiff. October 2025.</p>
+        </div>
+        <span class="tl-tag">Festival</span>
+      </div>
+
+      <div class="tl-item">
+        <p class="tl-year">2025</p>
+        <div class="tl-body">
+          <h3 class="tl-title">South Asian Heritage Month &amp; Tagore's Dance Philosophy</h3>
+          <p class="tl-desc">Research performance and theme launch, Club 1400 Cardiff. June 2025.</p>
+        </div>
+        <span class="tl-tag">Research</span>
+      </div>
+
+      <div class="tl-item">
+        <p class="tl-year">2024</p>
+        <div class="tl-body">
+          <h3 class="tl-title">Kathak Recital · Prerona Dance Festival</h3>
+          <p class="tl-desc">Kolkata, India. September 2024. Solo recital at curated classical dance festival.</p>
+        </div>
+        <span class="tl-tag">International</span>
+      </div>
+
+      <div class="tl-item">
+        <p class="tl-year">2022–23</p>
+        <div class="tl-body">
+          <h3 class="tl-title">Satyam Jnanam Anantam</h3>
+          <p class="tl-desc">Kathak dancer. Presented by Arpita Venkatesh, supported by Sangeet Natak Academy and Ministry of Tourism and Culture, Govt. of India. Kolkata and Vishakhapatnam.</p>
+        </div>
+        <span class="tl-tag">Production</span>
+      </div>
+
+      <div class="tl-item">
+        <p class="tl-year">2021–23</p>
+        <div class="tl-body">
+          <h3 class="tl-title">Chatusprana</h3>
+          <p class="tl-desc">Kathak dancer. Presented by Arpita Venkatesh and Sampita Chatterjee. Kolkata and Vishakhapatnam.</p>
+        </div>
+        <span class="tl-tag">Production</span>
+      </div>
+    </div>
+
+    <!-- Earlier festivals -->
+    <div style="margin-top:2px">
+      <div class="festival-grid">
+        <div class="festival-item">Bhagirath Dance Festival 2019</div>
+        <div class="festival-item">Malasree Nityotsav 2018, 2019</div>
+        <div class="festival-item">Kalabhrith Dance &amp; Music Festival 2017, 2018</div>
+        <div class="festival-item">Obhyudoy Cultural Festival 2016, 2017, 2018</div>
+        <div class="festival-item">Banichakra Dance Festival 2018</div>
+        <div class="festival-item">Pracheen Kala Kendra Mahotsab · Desapriyo Park 2018</div>
+        <div class="festival-item">Sur o Bani Sanskritik Utsav 2018</div>
+        <div class="festival-item">Rath Yatra Opening Ceremony · Shree Krishna Temple, Leamington Spa 2024</div>
+        <div class="festival-item">Opening at Royal Birmingham Conservatoire · UK Bengali Convention 2025</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-inner">
+    <p class="contact-eyebrow">Get in touch</p>
+    <h2 class="contact-title">Work together,<br>or just talk about rivers</h2>
+    <p class="contact-body">For performance bookings, commissioning enquiries, press, collaboration, teaching enquiries, or a conversation about the work.</p>
+    <a href="mailto:ibishikabiswas@gmail.com" class="contact-email">ibishikabiswas@gmail.com</a>
+    <a href="tel:+447741858176" class="contact-phone">+44 7741 858 176</a>
+
+    <div class="contact-meta">
+      <div class="contact-meta-item">
+        <p class="contact-meta-label">Based</p>
+        <p class="contact-meta-val">Cardiff, Wales, UK<br>Available for touring internationally</p>
+      </div>
+      <div class="contact-meta-item">
+        <p class="contact-meta-label">Teaching</p>
+        <p class="contact-meta-val">Kalakrishti Cultural Space<br>Cardiff · Classical &amp; Fusion Kathak</p>
+      </div>
+      <div class="contact-meta-item">
+        <p class="contact-meta-label">Watch</p>
+        <p class="contact-meta-val"><a href="https://www.youtube.com/@ishikabiswas_nrtya" style="color:var(--sand);opacity:0.6;text-decoration:none">YouTube · @ishikabiswas_nrtya</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">&copy; 2026 Ishika Biswas. All rights reserved.</span>
+  <span class="footer-hindi">नदी</span>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+</script>
+
+</body>
+</html>
